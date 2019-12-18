@@ -1,3 +1,10 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
+<!-- Content block -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,12 +16,33 @@
         {% endif %}
     </head>
 <body>
+{% block content %}
+        <div class="container">
+    <form>
+        <input type="text" name="movie_query" placeholder="Search for a Movie" class="form-control">
+        &nbsp;&nbsp;
+        <div class="text-center">
+        <input type="submit"  value="Submit" class="btn btn-default">
+        </div>
+    </form>
+
+</div>
         <!-- Popular movie section  -->
         <h3> Popular Movies</h3>
          <ul>
-            {% for popular_movie in popular %}
-                <li>{{ popular_movie.title}}</li>
-            {% endfor %}
+         {{macro.displayMovieList(popular)}}
         </ul>
+            <!-- Upcoming movie  -->
+            <!-- Upcoming movie  -->
+        <h3> Upcoming Movies </h3>
+         <ul>
+         {{macro.displayMovieList(upcoming)}}
+        </ul>
+        <!-- Now showing movie -->
+        <h3>Now Showing</h3>
+         <ul>
+         {{macro.displayMovieList(now_showing)}}
+        </ul>
+{% endblock %}
  </body>
 </html>
